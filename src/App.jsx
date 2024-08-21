@@ -18,7 +18,7 @@ function App() {
   const resetGame = () => {
     // Ponemos todos los valores como en el principio Array(9).fill(null), Turno X y sin ganador
     setBoard(Array(9).fill(null))
-    setTurn(TURNS.X)
+    // setTurn(TURNS.X)
     setWinner(null)
   }
 
@@ -37,6 +37,11 @@ function App() {
     if (newWinner) {
       confetti()
       setWinner(newWinner)
+      if (newWinner === TURNS.X) {
+        setTurn(TURNS.O)
+      } else if (newWinner === TURNS.O) {
+        setTurn(TURNS.X)
+      }
     } else if (checkEndGame(newBoard)) {
       setWinner(false) // Empate
     }
@@ -47,7 +52,7 @@ function App() {
       <h1>Tic Tac Toe</h1>
       <button onClick={resetGame}>Reset del juego</button>
       <Board board={board} updateBoard={updateBoard}/>
-      
+
       <section className="turn">
         <Square isSelected={turn === TURNS.X}>
           {TURNS.X}
